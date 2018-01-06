@@ -8,6 +8,11 @@ public class Movement : MonoBehaviour
 
     List<Transform> shipEngineParts;
 
+    List<Transform> partsW;
+    List<Transform> partsS;
+    List<Transform> partsA;
+    List<Transform> partsD;
+
     private Vector3 mousePos;
     private Rigidbody2D rb2d;
 
@@ -18,14 +23,33 @@ public class Movement : MonoBehaviour
     {
         rb2d = GetComponent<Rigidbody2D>();
         shipEngineParts = new List<Transform>();
+
+        partsW = new List<Transform>();
+        partsS = new List<Transform>();
+        partsA = new List<Transform>();
+        partsD = new List<Transform>();
         Transform[] engineParts = GetComponentsInChildren<Transform>();
+        
 
         foreach (Transform t in engineParts)
         {
-            if (t.tag.Equals("Engine"))
-                shipEngineParts.Add(t);
+            if (!t.tag.Equals("Engine"))
+                continue;
+
+            if (t.rotation.Equals(transform.rotation))
+                partsW.Add(t);
+            else if (t.rotation.eulerAngles.Equals(new Vector3(0, 0, 180)))
+                partsS.Add(t);
+            else if (t.rotation.eulerAngles.Equals(new Vector3(0, 0, 90)))
+                partsA.Add(t);
+            else if (t.rotation.eulerAngles.Equals(new Vector3(0, 0, 270)))
+                partsD.Add(t);
+
+            shipEngineParts.Add(t);
+            print(t.rotation.eulerAngles);
         }
     }
+
 
 
     private void Update()
@@ -42,6 +66,12 @@ public class Movement : MonoBehaviour
         rb2d.MoveRotation(angle);
 
         if (wPressed)
-            rb2d.AddForce(transform.up * speed);
+        {
+            foreach(Transform t in partsW)
+            {
+                rb2d.AddForce(new Vector2(speed, 0)); 
+            }
+        }
+            
     }
 }
