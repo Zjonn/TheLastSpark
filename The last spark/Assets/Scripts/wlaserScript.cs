@@ -5,7 +5,10 @@ using UnityEngine;
 public class wlaserScript : MonoBehaviour
 {
 
-    public Object laser;
+    public GameObject laser;
+    public Transform spawnPointLaser;
+
+    private GameObject clone;
 
     // Use this for initialization
     void Start()
@@ -24,6 +27,6 @@ public class wlaserScript : MonoBehaviour
 
     void FireLasert()
     {
-        Instantiate(laser, transform.position + transform.up, transform.rotation);
+        clone = Instantiate(laser, spawnPointLaser.position, spawnPointLaser.rotation) as GameObject;
     }
 }
