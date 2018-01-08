@@ -5,6 +5,8 @@ using UnityEngine;
 public class Movement : MonoBehaviour
 {
     public float speed = 1;
+    [Range(0,1)]
+    public float rotationSpeed = 1;
     public float maxSpeed = 50;
     public float maxRotationSpeed = 100;
 
@@ -112,10 +114,7 @@ public class Movement : MonoBehaviour
     {
         Vector3 shipDir = mousePos - this.transform.position;
         float angle = Mathf.Atan2(shipDir.y, shipDir.x) * Mathf.Rad2Deg - 90;
-        /*Mathf.LerpAngle(rb2d.rotation, angle, Time.deltaTime)*/
-        ;
-        // rb2d.MoveRotation(angle);
-        // rb2d.AddTorque(-angle * 0.6f);
+
         EngineAddRotation(angle);
 
         if (wPressed)
@@ -156,11 +155,15 @@ public class Movement : MonoBehaviour
     {
         foreach (EnginePart e in parts)
         {
-            e.EngineScript.SetThrust(100);
+            if (e.EngineTransform.gameObject.activeSelf)
+            {
+                float avaibleThrust = e.EngineScript.AvailableThrust;
+                e.EngineScript.SetThrust(avaibleThrust);
 
-            Transform t = e.EngineTransform;
-            Vector3 dir = t.rotation * new Vector3(0, speed, 0);
-            rb2d.AddForceAtPosition(new Vector2(dir.x, dir.y), t.position);
+                Transform t = e.EngineTransform;
+                Vector3 dir = t.rotation * new Vector3(0, speed * avaibleThrust / e.EngineScript.maxThrust, 0);
+                rb2d.AddForceAtPosition(new Vector2(dir.x, dir.y), t.position);
+            }
         }
     }
 
@@ -185,16 +188,24 @@ public class Movement : MonoBehaviour
 
         thrustMultipler = angleDiff / 180;
 
-
         foreach (EnginePart t in parts)
         {
             if (t.EngineTransform.gameObject.activeSelf)
             {
+                
                 float usedThrust = t.EngineScript.AvailableThrust * thrustMultipler;
-                rb2d.AddTorque(sign * usedThrust);
-                t.EngineScript.SetThrust(usedThrust);
+                rb2d.AddTorque(sign * usedThrust * rotationSpeed);
+                t.EngineScript.SetRotation(usedThrust);
             }
         }
+    }
+
+    private void Reset()
+    {
+        speed = 2;
+        rotationSpeed = 1;
+        maxSpeed = 50;
+        maxRotationSpeed = 1000;
     }
 }
 
