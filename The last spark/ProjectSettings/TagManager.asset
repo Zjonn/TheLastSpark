@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Engine
+  - WeaponLaser
+  - WeaponRocket
+  - WeaponMelee
   layers:
   - Default
   - TransparentFX
