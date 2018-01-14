@@ -28,10 +28,18 @@ public class Engine : MonoBehaviour
 
     private void Update()
     {
-        rotationThrust = dropDown(rotationThrust, 0.05f * maxThrust);
+        rotationThrust = DropDown(rotationThrust, 0.03f * maxThrust);
 
         var emmision = particle.emission;
-        float emmisionRate = thrust + rotationThrust * 10;
+        float emmisionRate;
+        if (rotationThrust > 0)
+        {
+            emmisionRate = thrust + 100 + rotationThrust * 10;
+        }
+        else
+        {
+            emmisionRate = thrust + rotationThrust * 10;
+        }
         if (emmisionRate > maxThrust) emmisionRate = maxThrust;
         emmision.rateOverTime = emmisionRate;
     }
@@ -54,7 +62,7 @@ public class Engine : MonoBehaviour
         if (this.rotationThrust > maxThrust) rotationThrust = maxThrust;
     }
 
-    float dropDown(float val, float sub)
+    float DropDown(float val, float sub)
     {
         if (val > 0)
         {

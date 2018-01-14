@@ -2,19 +2,34 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraFollow : MonoBehaviour {
+public class CameraFollow : MonoBehaviour
+{
 
     public Transform toFollow;
+    public float minSize = 2;
+    public float maxSize = 5;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	private void Update () {
-		
-	}
+    Camera camera;
+
+    // Use this for initialization
+    void Start()
+    {
+        camera = GetComponent<Camera>();
+        camera.orthographicSize = minSize;
+    }
+
+    // Update is called once per frame
+    private void Update()
+    {
+        if (Input.GetAxis("Mouse ScrollWheel") < 0f && camera.orthographicSize < maxSize) // forward
+        {
+            camera.orthographicSize += 0.5f;
+        }
+        else if (Input.GetAxis("Mouse ScrollWheel") > 0f && camera.orthographicSize > minSize) // backwards
+        {
+            camera.orthographicSize -= 0.5f;
+        }
+    }
 
     private void FixedUpdate()
     {
@@ -32,5 +47,21 @@ public class CameraFollow : MonoBehaviour {
         //    lerp = 0;
         //}
         this.transform.position = v;
+    }
+
+    private void OnValidate()
+    {
+        if (minSize > maxSize)
+        {
+            float tmp = maxSize;
+            maxSize = minSize;
+            minSize = tmp;
+        }
+    }
+
+    private void Reset()
+    {
+        minSize = 2;
+        maxSize = 5;
     }
 }

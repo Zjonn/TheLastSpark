@@ -136,7 +136,7 @@ public class Movement : MonoBehaviour
 
 
         //Ograniczenie prędkości
-        if (rb2d.velocity.magnitude > maxSpeed)
+        if (rb2d.velocity.magnitude > maxSpeed || rb2d.velocity.magnitude < -maxSpeed)
         {
             rb2d.velocity = rb2d.velocity.normalized * maxSpeed;
         }
@@ -191,11 +191,10 @@ public class Movement : MonoBehaviour
         foreach (EnginePart t in parts)
         {
             if (t.EngineTransform.gameObject.activeSelf)
-            {
-                
-                float usedThrust = t.EngineScript.AvailableThrust * thrustMultipler;
-                rb2d.AddTorque(sign * usedThrust * rotationSpeed);
-                t.EngineScript.SetRotation(usedThrust);
+            {               
+                float thrust = t.EngineScript.AvailableThrust * thrustMultipler;
+                rb2d.AddTorque(sign * thrust * rotationSpeed);
+                t.EngineScript.SetRotation(thrust);
             }
         }
     }
