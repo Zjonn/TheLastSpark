@@ -20,9 +20,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4384035534676990}
   - component: {fileID: 212313078090537932}
-  - component: {fileID: 60859167902642732}
   - component: {fileID: 50493582944103888}
-  m_Layer: 0
+  - component: {fileID: 60859167902642732}
+  m_Layer: 9
   m_Name: asteroid3
   m_TagString: Untagged
   m_Icon: {fileID: 0}

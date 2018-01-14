@@ -22,8 +22,7 @@ GameObject:
   - component: {fileID: 212313078090537932}
   - component: {fileID: 50493582944103888}
   - component: {fileID: 60323287503012800}
-  - component: {fileID: 255877265554096628}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: asteroid3L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -136,20 +135,3 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
---- !u!255 &255877265554096628
-FixedJoint2D:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1547455767973934}
-  m_Enabled: 1
-  serializedVersion: 4
-  m_EnableCollision: 0
-  m_ConnectedRigidBody: {fileID: 0}
-  m_BreakForce: Infinity
-  m_BreakTorque: Infinity
-  m_AutoConfigureConnectedAnchor: 1
-  m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: 0.41697076, y: 2.4141989}
-  m_DampingRatio: 0
-  m_Frequency: 0
