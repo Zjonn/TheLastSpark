@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class WeaponController : MonoBehaviour
 {
@@ -46,10 +45,10 @@ public class WeaponController : MonoBehaviour
         {
             foreach (Transform weapon in WLaser)
             {
-                ExecuteEvents.Execute<EventManager>(weapon.gameObject, null, (x, y) => x.Fire());
-
+                weapon.GetComponent<EventManager>().Fire();
             }
         }
+        //Trzeba rozszerzyc przy wiekrzej ilosci broni
 
     }
 }

@@ -1,10 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
+public interface IDamageAmount {
 
-public interface EventManager
-{
-    void Fire();
+    float GetDamage();
 }
