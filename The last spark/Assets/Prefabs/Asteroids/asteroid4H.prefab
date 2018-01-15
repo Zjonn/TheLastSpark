@@ -21,9 +21,8 @@ GameObject:
   - component: {fileID: 4883737721656992}
   - component: {fileID: 212084459783725138}
   - component: {fileID: 50466354565438572}
-  - component: {fileID: 255947666365763744}
   - component: {fileID: 61878009972013614}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: asteroid4H
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -132,20 +131,3 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
---- !u!255 &255947666365763744
-FixedJoint2D:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1037853825275460}
-  m_Enabled: 1
-  serializedVersion: 4
-  m_EnableCollision: 0
-  m_ConnectedRigidBody: {fileID: 0}
-  m_BreakForce: Infinity
-  m_BreakTorque: Infinity
-  m_AutoConfigureConnectedAnchor: 1
-  m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: 1.711, y: 1.5422006}
-  m_DampingRatio: 0
-  m_Frequency: 0

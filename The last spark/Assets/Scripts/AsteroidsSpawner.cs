@@ -7,6 +7,7 @@ public class AsteroidsSpawner : MonoBehaviour
     public float scale;
     public float w, h;
     public GameObject asteroid;
+    public Transform parent;
     // Use this for initialization
     void Start()
     {
@@ -22,16 +23,9 @@ public class AsteroidsSpawner : MonoBehaviour
 
                 if (noise > 0.59f && noise < 0.6f)
                 {
-                    Instantiate<GameObject>(asteroid, new Vector3(i - w/2 + 0.64f, j - h/2 + 0.64f, 0), new Quaternion(0, 0, 0, 0));
+                    Instantiate<GameObject>(asteroid, new Vector3(i - w / 2 + 0.64f, j - h / 2 + 0.64f, 0), new Quaternion(0, 0, 0, 0), parent);
                 }
             }
         }
-    }
-
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 }
