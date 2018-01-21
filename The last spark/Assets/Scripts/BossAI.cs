@@ -7,6 +7,7 @@ public class BossAI : MonoBehaviour {
     public Transform player;
     Vector3 firstPos;
     bool isAttack;
+    bool isRotate;
     public float health;
     float maxHealth;
     float howFar;
@@ -39,6 +40,7 @@ public class BossAI : MonoBehaviour {
         firstPos = transform.position;
         maxHealth = health;
         isAttack = false;
+        isRotate = false;
         weapons = new List<BossWeapon> { weapon0, weapon1, weapon2, weapon3, weapon4, weapon5 };
     }
 	
@@ -74,6 +76,17 @@ public class BossAI : MonoBehaviour {
             case BossActionType.AttackingType0:
                 HandleAttackingType0State();
                 break;
+            case BossActionType.AttackingType1:
+                HandleAttackingType1State();
+                break;
+        }
+    }
+
+    void FixedUpdate()
+    {
+        if (isRotate)
+        {
+
         }
     }
 
@@ -97,6 +110,11 @@ public class BossAI : MonoBehaviour {
         }
     }
 
+    void HandleAttackingType1State()
+    {
+        isRotate = true;
+    }
+
     void FireType1()
     {
         foreach(BossWeapon weapon in weapons)
@@ -111,11 +129,6 @@ public class BossAI : MonoBehaviour {
         {
             weapon.BossFireType0();
         }
-    }
-
-    void Rotate()
-    {
-
     }
 
     void InstaRegenerate()
