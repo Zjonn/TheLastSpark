@@ -21,9 +21,9 @@ public class AsteroidsSpawner : MonoBehaviour
 
                 float noise = Mathf.PerlinNoise(xPos, yPos);
 
-                if (noise > 0.59f && noise < 0.6f)
+                if (noise > 0.59f && noise < 0.6f || noise > 0.19f && noise < 0.2)
                 {
-                    Instantiate<GameObject>(asteroid, new Vector3(i - w / 2 + 0.64f, j - h / 2 + 0.64f, 0), new Quaternion(0, 0, 0, 0), parent);
+                    Instantiate<GameObject>(asteroid, new Vector3((i - w / 2) * 10f, (j - h / 2) * 10f, 0), new Quaternion(0, 0, 0, 0), parent);
                 }
             }
         }

@@ -127,11 +127,11 @@ class Chunks
         int h = (int)((y + sizeY / 2) / chunksSize);
 
         if (w < 0) w = 0;
-        else if (w >= sizeX) w = sizeX - 1;
+        else if (w >= sizeX / chunksSize) w = sizeX / chunksSize - 1;
 
         if (h < 0) h = 0;
-        else if (h >= sizeX) h = sizeX - 1;
-
+        else if (h >= sizeY / chunksSize) h = sizeY / chunksSize - 1;
+        MonoBehaviour.print(w + " " + h + " " + sizeX);
         return chunks[w, h];
     }
 

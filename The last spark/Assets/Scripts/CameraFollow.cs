@@ -9,25 +9,26 @@ public class CameraFollow : MonoBehaviour
     public float minSize = 2;
     public float maxSize = 5;
 
-    Camera camera;
+    Camera playerCamera;
+
 
     // Use this for initialization
     void Start()
     {
-        camera = GetComponent<Camera>();
-        camera.orthographicSize = minSize;
+        playerCamera = GetComponent<Camera>();
+        playerCamera.orthographicSize = minSize;
     }
 
     // Update is called once per frame
     private void Update()
     {
-        if (Input.GetAxis("Mouse ScrollWheel") < 0f && camera.orthographicSize < maxSize) // forward
+        if (Input.GetAxis("Mouse ScrollWheel") < 0f && playerCamera.orthographicSize < maxSize) // forward
         {
-            camera.orthographicSize += 0.5f;
+            playerCamera.orthographicSize += 0.5f;
         }
-        else if (Input.GetAxis("Mouse ScrollWheel") > 0f && camera.orthographicSize > minSize) // backwards
+        else if (Input.GetAxis("Mouse ScrollWheel") > 0f && playerCamera.orthographicSize > minSize) // backwards
         {
-            camera.orthographicSize -= 0.5f;
+            playerCamera.orthographicSize -= 0.5f;
         }
     }
 
