@@ -23,9 +23,9 @@ GameObject:
   - component: {fileID: 50135840357357126}
   - component: {fileID: 61405158661145866}
   - component: {fileID: 114988892034847052}
-  m_Layer: 9
+  m_Layer: 11
   m_Name: laser2
-  m_TagString: Untagged
+  m_TagString: WeaponLaser
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

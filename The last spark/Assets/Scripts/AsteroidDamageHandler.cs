@@ -47,9 +47,12 @@ public class AsteroidDamageHandler : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        damage += collision.GetComponent<IDamageAmount>().GetDamage();
-        curDamage = damage;
-        c = Color.HSVToRGB(Random.value, 1, 1);
+        if (!collision.CompareTag("Player"))
+        {
+            damage += collision.GetComponent<IDamageAmount>().GetDamage();
+            curDamage = damage;
+            c = Color.HSVToRGB(Random.value, 1, 1);
+        }
     }
 
     void Die()

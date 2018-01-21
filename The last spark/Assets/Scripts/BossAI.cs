@@ -40,7 +40,7 @@ public class BossAI : MonoBehaviour {
         firstPos = transform.position;
         maxHealth = health;
         isAttack = false;
-        isRotate = false;
+        isRotate = true;
         weapons = new List<BossWeapon> { weapon0, weapon1, weapon2, weapon3, weapon4, weapon5 };
     }
 	
@@ -48,12 +48,14 @@ public class BossAI : MonoBehaviour {
 	void Update () {
         howFar = Vector3.Distance(transform.position, player.position);
 
-        if (howFar > 50)
+        DeactivateByDistance();
+        Rotate();
+        if (health <= 0)
         {
-            eCurState = BossActionType.Idle;
-            CancelInvoke();
-            isAttack = false;
+            Die();
         }
+
+
 
         switch (eCurState)
         {
@@ -84,10 +86,7 @@ public class BossAI : MonoBehaviour {
 
     void FixedUpdate()
     {
-        if (isRotate)
-        {
-
-        }
+       
     }
 
     void HandleIdleState()
@@ -105,7 +104,6 @@ public class BossAI : MonoBehaviour {
         if (!isAttack)
         {
             InvokeRepeating("FireType1", 0.5f, 1f);
-            InvokeRepeating("Rotate", 0.5f, 1f);
             isAttack = true;
         }
     }
@@ -113,14 +111,6 @@ public class BossAI : MonoBehaviour {
     void HandleAttackingType1State()
     {
         isRotate = true;
-    }
-
-    void FireType1()
-    {
-        foreach(BossWeapon weapon in weapons)
-        {
-            weapon.BossFireType1();
-        }
     }
 
     void fireType0()
@@ -131,9 +121,50 @@ public class BossAI : MonoBehaviour {
         }
     }
 
+    void FireType1()
+    {
+        foreach (BossWeapon weapon in weapons)
+        {
+            weapon.BossFireType1();
+        }
+    }
+
     void InstaRegenerate()
     {
         health = maxHealth;
     }
 
+    void DeactivateByDistance()
+    {
+        if (howFar > 50)
+        {
+            eCurState = BossActionType.Idle;
+            CancelInvoke();
+            isAttack = false;
+        }
+    }
+
+    void Rotate()
+    {
+        if (isRotate)
+        {
+            transform.Rotate(Vector3.forward * 150 * Time.deltaTime);
+        }
+    }
+
+    private void OnDisable()
+    {
+        DeactivateByDistance();
+    }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        health -= collision.GetComponent<IDamageAmount>().GetDamage();
+    }
+
+    void Die()
+    {
+        Destroy(gameObject);
+    }
 }
+
