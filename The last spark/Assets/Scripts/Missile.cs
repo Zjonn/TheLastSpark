@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyLaserScript : MonoBehaviour, IDamageAmount
-{
-    // Use this for initialization
+public class Missile : MonoBehaviour {
+
     public float movementSpeed = 1;
     public float damage = 10;
     bool die = false;
 
-    void Start () {
-        Destroy(gameObject, 2);
+    void Start()
+    {
+        Destroy(gameObject, Random.Range(5, 6));
     }
 
     void Update()
@@ -22,7 +22,8 @@ public class EnemyLaserScript : MonoBehaviour, IDamageAmount
     }
 
     // Update is called once per frame
-    void FixedUpdate () {
+    void FixedUpdate()
+    {
         transform.Translate(Vector2.up * movementSpeed * Time.deltaTime);
     }
 
