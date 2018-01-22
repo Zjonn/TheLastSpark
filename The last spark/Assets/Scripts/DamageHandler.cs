@@ -4,12 +4,22 @@ using UnityEngine;
 
 public class DamageHandler : MonoBehaviour
 {
+    DamageManagement dm;
 
-    public int health = 2;
+    public int maxHealth = 2;
+    int health;
     // Use this for initialization
     void Start()
     {
+        //try
+        //{
+        dm = GetComponentInParent<DamageManagement>();
+        //}
+        //catch (Unity)
+        //{
 
+        //}
+        health = maxHealth;
     }
 
     // Update is called once per frame
@@ -17,17 +27,25 @@ public class DamageHandler : MonoBehaviour
     {
         if (health <= 0)
         {
-            Die();
+            dm.DeadHandler(gameObject);
+            health = maxHealth;
         }
     }
 
-    void OnTriggerEnter2D(Collider2D collision)
+    void Damage(float val)
     {
-        health--;
+        health -= (int)val;
     }
 
-    void Die()
+
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        Destroy(gameObject);
+        Damage(1);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("WeaponLaser"))
+            Damage(collision.gameObject.GetComponent<IDamageAmount>().GetDamage());
     }
 }
