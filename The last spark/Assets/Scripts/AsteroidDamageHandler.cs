@@ -5,15 +5,22 @@ using UnityEngine;
 public class AsteroidDamageHandler : MonoBehaviour
 {
     SpriteRenderer spriteRend;
+    OsmSpawner osmSpawner;
     Color firstColor;
+    Color newColor;
+
+    float startSize;
 
     float curDamage = 0;
     float damage = 0;
-    Color c;
+    Vector3 velocity = Vector3.zero;
 
     // Use this for initialization
     void Start()
     {
+        startSize = transform.localScale.x;
+
+        osmSpawner = GetComponent<OsmSpawner>();
         spriteRend = GetComponent<SpriteRenderer>();
         spriteRend.color = Color.HSVToRGB(Random.value, 1, 1);
         firstColor = spriteRend.color;
@@ -25,31 +32,32 @@ public class AsteroidDamageHandler : MonoBehaviour
         if (damage > 0)
         {
             //Zmiana koloru przy otrzymaniu obrażeń
-            spriteRend.color = Color.Lerp(spriteRend.color, c, Mathf.PingPong(Time.time, 0.1f));
+            spriteRend.color = Color.Lerp(spriteRend.color, newColor, Mathf.PingPong(Time.time, 0.1f));
 
-            //Zmiana wielkości
-            Vector3 velocity = Vector3.zero;
-            transform.localScale = Vector3.SmoothDamp(transform.localScale, new Vector3(0, 0, 0), ref velocity, 0.3f);
+            //Zmiana wielkości           
+            transform.localScale = Vector3.SmoothDamp(transform.localScale, new Vector3(0, 0, 0), ref velocity, 50 * 1 / damage);
             damage -= curDamage * Time.deltaTime * 5;
         }
         else
         {
             float H, S, V;
-           Color.RGBToHSV(firstColor, out H, out S, out V);
-            spriteRend.color = Color.Lerp(spriteRend.color, Color.HSVToRGB(H, 1 - transform.localScale.x / 20,1 ), Mathf.PingPong(Time.time, 0.2f));
+            Color.RGBToHSV(firstColor, out H, out S, out V);
+            spriteRend.color = Color.Lerp(spriteRend.color, Color.HSVToRGB(H, 1 - transform.localScale.x / 20, 1), Mathf.PingPong(Time.time, 0.2f));
         }
+
         if (transform.localScale.x < 0.5f)
         {
             Die();
         }
-
     }
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        damage += collision.GetComponent<IDamageAmount>().GetDamage();
+        float dealDamage = collision.GetComponent<IDamageAmount>().GetDamage();
+        damage += dealDamage;
         curDamage = damage;
-        c = Color.HSVToRGB(Random.value, 1, 1);
+        newColor = Color.HSVToRGB(Random.value, 1, 1);
+        osmSpawner.spawnOsm(transform.localScale.x);
     }
 
     void Die()

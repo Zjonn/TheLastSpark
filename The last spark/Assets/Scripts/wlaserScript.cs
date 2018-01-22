@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class wlaserScript : MonoBehaviour, EventManager
+public class wlaserScript : MonoBehaviour, IWeapon
 {
 
     public GameObject laser;

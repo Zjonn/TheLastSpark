@@ -131,7 +131,7 @@ class Chunks
 
         if (h < 0) h = 0;
         else if (h >= sizeY / chunksSize) h = sizeY / chunksSize - 1;
-        MonoBehaviour.print(w + " " + h + " " + sizeX);
+
         return chunks[w, h];
     }
 
@@ -166,7 +166,16 @@ class Chunks
 
     public Vector3 GetChunkPos(Vector3 v)
     {
-        return new Vector3((int)((v.x + sizeX / 2) / chunksSize), (int)((v.y + sizeY / 2) / chunksSize), 0);
+        int w = (int)((v.x + sizeX / 2) / chunksSize);
+        int h = (int)((v.y + sizeY / 2) / chunksSize);
+
+        if (w < 0) w = 0;
+        else if (w >= sizeX / chunksSize) w = sizeX / chunksSize - 1;
+
+        if (h < 0) h = 0;
+        else if (h >= sizeY / chunksSize) h = sizeY / chunksSize - 1;
+
+        return new Vector3(w, h, 0);
     }
 
     public void DisableChunkElements(List<Transform> chunk)
@@ -180,12 +189,15 @@ class Chunks
 
     public void DisableOutOfSignElements(List<Transform> chunk, Vector2 point, float distance = 20)
     {
+        bool hasNull = false;
         foreach (Transform go in chunk)
         {
             if (go.Equals(null))
             {
-                GetChunkFromWorldPos(point).RemoveAll(null);
+                hasNull = true;
+                continue;
             }
+
             if (Vector3.Distance(point, go.position) > distance && go.gameObject.activeSelf)
             {
                 go.gameObject.SetActive(false);
@@ -195,6 +207,7 @@ class Chunks
                 go.gameObject.SetActive(true);
             }
         }
+        if (hasNull) chunk.RemoveAll(x => x == null);
     }
 
     private void InitChunksArray()

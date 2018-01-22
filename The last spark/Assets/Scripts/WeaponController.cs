@@ -45,7 +45,7 @@ public class WeaponController : MonoBehaviour
         {
             foreach (Transform weapon in WLaser)
             {
-                weapon.GetComponent<EventManager>().Fire();
+                weapon.GetComponent<IWeapon>().Fire();
             }
         }
         //Trzeba rozszerzyc przy wiekrzej ilosci broni
