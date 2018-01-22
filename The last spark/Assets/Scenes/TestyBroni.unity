@@ -424,6 +424,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scale: 50.92
+  triggerRange: 0
   w: 100
   h: 100
   asteroid: {fileID: 1886110214358014, guid: 39a9d40dcb654f3479b31894678145fa, type: 2}
@@ -550,6 +551,23 @@ MonoBehaviour:
   mapSizeY: 500
   playerCamera: {fileID: 1747335669}
   cornersPosShift: 0
+--- !u!1 &1810893425 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1108978733987026, guid: d758afc4fdff05d428cb22054b8cc925,
+    type: 2}
+  m_PrefabInternal: {fileID: 810058524}
+--- !u!114 &1810893426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1810893425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f03f902411baf147aea0bac78c78768, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 2
 --- !u!4 &2006228386 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4211497853043780, guid: d758afc4fdff05d428cb22054b8cc925,
