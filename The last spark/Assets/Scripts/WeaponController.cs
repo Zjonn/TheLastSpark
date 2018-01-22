@@ -10,6 +10,8 @@ public class WeaponController : MonoBehaviour
     List<Transform> WRocket;
     List<Transform> WMelee;
 
+    float nextFire = 0.0F;
+
     // Use this for initialization
     void Start()
     {
@@ -41,14 +43,19 @@ public class WeaponController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown("space") && WLaser != null)
+        FireLaserType0();
+        //Trzeba rozszerzyc przy wiekrzej ilosci broni
+    }
+
+    void FireLaserType0()
+    {
+        if (Input.GetMouseButton(0) && WLaser != null && Time.time > nextFire)
         {
+            nextFire = Time.time + 0.1f;
             foreach (Transform weapon in WLaser)
             {
                 weapon.GetComponent<IWeapon>().Fire();
             }
         }
-        //Trzeba rozszerzyc przy wiekrzej ilosci broni
-
     }
 }

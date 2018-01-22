@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BossWeapon : MonoBehaviour {
+public class BossWeapon : MonoBehaviour
+{
     public float health = 500;
     public GameObject laser;
+    public GameObject missile;
 
-    Vector3 localPosition;
+    //Vector3 localPosition;
     Rigidbody2D boss;
     Collider2D m_Collider;
     Renderer m_Renderer;
@@ -14,7 +16,7 @@ public class BossWeapon : MonoBehaviour {
     bool regenerate;
     bool canFire;
     float maxHealth;
-    
+
 
     public Transform spawnPointCenter;
     public Transform spawnPointLeft0;
@@ -24,7 +26,8 @@ public class BossWeapon : MonoBehaviour {
 
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         boss = GetComponentInParent<Rigidbody2D>();
         regenerate = false;
         canFire = true;
@@ -32,9 +35,10 @@ public class BossWeapon : MonoBehaviour {
         m_Collider = GetComponent<Collider2D>();
         m_Renderer = GetComponent<Renderer>();
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update()
+    {
         if (health <= 0)
         {
             isActivate(false);
@@ -94,6 +98,16 @@ public class BossWeapon : MonoBehaviour {
             if (boss != null)
                 clone4.GetComponent<Rigidbody2D>().velocity = boss.velocity;
 
+        }
+    }
+
+    public void BossFireType2()
+    {
+        if (canFire)
+        {
+            GameObject clone0 = Instantiate(missile, spawnPointCenter.position, spawnPointCenter.rotation) as GameObject;
+            if (boss != null)
+                clone0.GetComponent<Rigidbody2D>().velocity = boss.velocity;
         }
     }
     void OnTriggerEnter2D(Collider2D collision)

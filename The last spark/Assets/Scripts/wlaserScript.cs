@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class wlaserScript : MonoBehaviour, IWeapon
 {
-
+    public GameObject boss;
     public GameObject laser;
     public Transform spawnPointLaser;
 
@@ -14,6 +14,7 @@ public class wlaserScript : MonoBehaviour, IWeapon
     // Use this for initialization
     void Start()
     {
+        //Instantiate(boss, , )
         player = gameObject.GetComponentInParent(typeof(Rigidbody2D)) as Rigidbody2D;
     }
 
