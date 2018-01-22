@@ -116,7 +116,6 @@ class Chunks
         this.sizeX = (int)sizeX;
         this.sizeY = (int)sizeY;
         this.chunksSize = chunksSize;
-        chunks = new List<Transform>[this.sizeX, this.sizeY];
         InitChunksArray();
         SortElements(objects);
     }

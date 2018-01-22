@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Camera))]
 public class CameraFollow : MonoBehaviour
 {
 
@@ -16,7 +17,7 @@ public class CameraFollow : MonoBehaviour
     void Start()
     {
         playerCamera = GetComponent<Camera>();
-        playerCamera.orthographicSize = minSize;
+        playerCamera.orthographicSize = (minSize + maxSize) / 2;
     }
 
     // Update is called once per frame

@@ -41,7 +41,7 @@ public class OsmGathering : MonoBehaviour
         IOsmCollector[] ocs = GetComponentsInChildren<IOsmCollector>();
         foreach (IOsmCollector oc in ocs)
         {
-            maxCapacity += oc.getCapacity();
+            maxCapacity += oc.GetCapacity();
         }
     }
 
