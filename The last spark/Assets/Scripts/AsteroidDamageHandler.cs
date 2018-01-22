@@ -58,6 +58,13 @@ public class AsteroidDamageHandler : MonoBehaviour
         curDamage = damage;
         newColor = Color.HSVToRGB(Random.value, 1, 1);
         osmSpawner.spawnOsm(transform.localScale.x);
+
+        if (!collision.CompareTag("Player"))
+        {
+            damage += collision.GetComponent<IDamageAmount>().GetDamage();
+            curDamage = damage;
+            c = Color.HSVToRGB(Random.value, 1, 1);
+        }
     }
 
     void Die()
