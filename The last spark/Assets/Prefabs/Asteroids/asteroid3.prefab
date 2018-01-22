@@ -22,9 +22,10 @@ GameObject:
   - component: {fileID: 212313078090537932}
   - component: {fileID: 50493582944103888}
   - component: {fileID: 60859167902642732}
+  - component: {fileID: 114598299520033084}
   m_Layer: 9
   m_Name: asteroid3
-  m_TagString: Untagged
+  m_TagString: Osm
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -52,9 +53,9 @@ Rigidbody2D:
   m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
+  m_UseAutoMass: 1
   m_Mass: 10
-  m_LinearDrag: 0.05
+  m_LinearDrag: 0.3
   m_AngularDrag: 0.2
   m_GravityScale: 1
   m_Material: {fileID: 0}
@@ -91,6 +92,17 @@ PolygonCollider2D:
       - {x: -0.235, y: -0.25}
       - {x: 0.25, y: 0.235}
       - {x: 0.25, y: 0.25}
+--- !u!114 &114598299520033084
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1547455767973934}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19b30b218036ab84aa9268b40da095b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &212313078090537932
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 50973033182359390}
   - component: {fileID: 60157443906934484}
   - component: {fileID: 114331028328219730}
+  - component: {fileID: 114073961635025474}
   m_Layer: 9
   m_Name: Polygon
   m_TagString: Asteroid
@@ -37,7 +38,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1122257840185570}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 4.303074, y: 6.845969, z: 0}
   m_LocalScale: {x: 10, y: 10, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -92,6 +93,21 @@ PolygonCollider2D:
       - {x: -0.2938926, y: -0.40450853}
       - {x: 0.29389268, y: -0.40450847}
       - {x: 0.47552824, y: 0.15450856}
+--- !u!114 &114073961635025474
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1122257840185570}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5f5df59080f3b7419fa24ab971b37bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chance: 0.35
+  InOneUpdate: 2
+  osmPrefabs:
+  - {fileID: 1547455767973934, guid: 28f86cfd801f29a4fbfda3c9aa37b8d3, type: 2}
 --- !u!114 &114331028328219730
 MonoBehaviour:
   m_ObjectHideFlags: 1

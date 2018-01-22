@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IDamageAmount
+public interface IOsmCollector
 {
-
-    float GetDamage();
+    float GetCapacity();
 }

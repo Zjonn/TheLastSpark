@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Camera))]
 public class CameraFollow : MonoBehaviour
 {
 
@@ -16,7 +17,7 @@ public class CameraFollow : MonoBehaviour
     void Start()
     {
         playerCamera = GetComponent<Camera>();
-        playerCamera.orthographicSize = minSize;
+        playerCamera.orthographicSize = (minSize + maxSize) / 2;
     }
 
     // Update is called once per frame
@@ -37,16 +38,6 @@ public class CameraFollow : MonoBehaviour
         Vector3 v = toFollow.position;
         v.z = transform.position.z;
 
-        //float dis = Vector3.Distance(v, transform.position);
-        //float lerp = dis/16 * Time.deltaTime * 8;
-        //if(dis > 20)
-        //{
-        //    lerp = 1;
-        //}
-        //else if(dis < 4)
-        //{
-        //    lerp = 0;
-        //}
         this.transform.position = v;
     }
 

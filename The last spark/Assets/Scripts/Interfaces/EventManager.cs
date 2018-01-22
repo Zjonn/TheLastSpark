@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 
-public interface EventManager
+public interface IWeapon
 {
     void Fire();
 }

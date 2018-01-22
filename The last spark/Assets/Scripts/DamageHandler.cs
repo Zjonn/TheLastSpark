@@ -2,16 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DamageHandler : MonoBehaviour {
+public class DamageHandler : MonoBehaviour
+{
 
     public int health = 2;
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    // Use this for initialization
+    void Start()
+    {
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
         if (health <= 0)
         {
             Die();
@@ -20,7 +23,7 @@ public class DamageHandler : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        health--;     
+        health--;
     }
 
     void Die()

@@ -9,6 +9,7 @@ TagManager:
   - WeaponRocket
   - WeaponMelee
   - Asteroid
+  - Osm
   layers:
   - Default
   - TransparentFX

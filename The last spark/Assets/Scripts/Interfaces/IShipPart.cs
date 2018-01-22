@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IDamageAmount
+public interface IShipPart
 {
-
-    float GetDamage();
+    float GetHP();
+    void SetHP();
 }
