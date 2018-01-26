@@ -40,6 +40,7 @@ GameObject:
   - component: {fileID: 50149186113375714}
   - component: {fileID: 66664622218018426}
   - component: {fileID: 61416296157041216}
+  - component: {fileID: 114597826130098840}
   m_Layer: 0
   m_Name: Player 1
   m_TagString: Player
@@ -495,6 +496,18 @@ MonoBehaviour:
   rotationSpeed: 1
   maxSpeed: 50
   maxRotationSpeed: 1000
+--- !u!114 &114597826130098840
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1108978733987026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f03f902411baf147aea0bac78c78768, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 2
 --- !u!114 &114628331950240226
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -518,6 +531,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b75cc1b4b28cbd4caf94dc3d24d93ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  boss: {fileID: 0}
   laser: {fileID: 1576052201421636, guid: 95a6c768840b32e4ba2fea33bc34cb9a, type: 2}
   spawnPointLaser: {fileID: 4190280500706872}
 --- !u!114 &114651625794905646
@@ -7349,7 +7363,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1688429273
+  randomSeed: 1950974814
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -14437,7 +14451,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 8c1632beeda4c2242801b55b11328efc, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6f1892756f6f6dc41befb4d435510cee, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -14445,7 +14459,7 @@ SpriteRenderer:
   m_Size: {x: 0.64, y: 0.64}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
 --- !u!212 &212825341265697282
 SpriteRenderer:
