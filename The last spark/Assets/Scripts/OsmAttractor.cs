@@ -16,7 +16,7 @@ public class OsmAttractor : MonoBehaviour, IOsmCollector
     void Start()
     {
         osms = new List<Transform>();
-        isSpace = false;
+        isSpace = true;
     }
 
     // Update is called once per frame

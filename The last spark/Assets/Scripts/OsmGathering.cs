@@ -30,8 +30,7 @@ public class OsmGathering : MonoBehaviour
     void Start()
     {
         maxCapacity = capacity;
-        osmInfo.text = "Osm: 0/" + maxCapacity;
-
+        
         osmAttr = GetComponentInChildren<OsmAttractor>();
 
         IOsmCollector[] ocs = GetComponentsInChildren<IOsmCollector>();
@@ -39,11 +38,13 @@ public class OsmGathering : MonoBehaviour
         {
             maxCapacity += oc.GetCapacity();
         }
+        osmInfo.text = "Osm: 0/" + maxCapacity;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Osm"))
+        SpecifyAttractorState();
+        if (collision.gameObject.CompareTag("Osm") && usedCapacity != maxCapacity)
         {
             UsedCapacity += collision.gameObject.GetComponent<Osm>().Value;
             osmInfo.text = "Osm: " + UsedCapacity + "/" + maxCapacity;

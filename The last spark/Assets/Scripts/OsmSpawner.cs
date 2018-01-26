@@ -31,7 +31,7 @@ public class OsmSpawner : MonoBehaviour
 
 
             GameObject osm = Instantiate<GameObject>(osmPrefabs[Random.Range(0, osmPrefabs.Count)], pos, Quaternion.identity);
-            osm.GetComponent<Rigidbody2D>().AddForce(dir.normalized*10);
+            osm.GetComponent<Rigidbody2D>().AddForce(dir.normalized);
         }
     }
 
