@@ -10,7 +10,7 @@ public class BossAI : MonoBehaviour
 
     SpriteRenderer spriteRend;
     Color firstColor;
-    Vector3 firstPos;
+    //Vector3 firstPos; Gdy boss będzie się mógł poruszać
 
     bool isAttack = false;
     bool isImmortal = false;
@@ -49,7 +49,7 @@ public class BossAI : MonoBehaviour
     {
         spriteRend = GetComponent<SpriteRenderer>();
         firstColor = spriteRend.color;
-        firstPos = transform.position;
+        //firstPos = transform.position;
         maxHealth = health;
         weapons = new List<BossWeapon> { weapon0, weapon1, weapon2, weapon3, weapon4, weapon5 };
     }
@@ -108,6 +108,7 @@ public class BossAI : MonoBehaviour
         {
             eCurState = BossActionType.AttackingType1;
             isAttack = false;
+            isImmortal = false;
             degRotate = 0;
         }
     }
@@ -245,7 +246,7 @@ public class BossAI : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!isImmortal)
+        if (!isImmortal && !collision.gameObject.CompareTag("Player") && !collision.gameObject.CompareTag("Osm"))
         {
             float damage = collision.GetComponent<IDamageAmount>().GetDamage();
             wholeDamage += damage;

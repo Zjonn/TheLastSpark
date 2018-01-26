@@ -9,8 +9,6 @@ public class AsteroidDamageHandler : MonoBehaviour
     Color firstColor;
     Color newColor;
 
-    float startSize;
-
     float curDamage = 0;
     float damage = 0;
     Vector3 velocity = Vector3.zero;
@@ -18,8 +16,6 @@ public class AsteroidDamageHandler : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        startSize = transform.localScale.x;
-
         osmSpawner = GetComponent<OsmSpawner>();
         spriteRend = GetComponent<SpriteRenderer>();
         spriteRend.color = Color.HSVToRGB(Random.value, 1, 1);

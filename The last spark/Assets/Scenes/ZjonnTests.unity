@@ -952,7 +952,7 @@ GameObject:
   - component: {fileID: 1512702044}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1020,7 +1020,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 1
-  m_Mass: 4.096
+  m_Mass: 3.6864002
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
