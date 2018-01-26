@@ -9,7 +9,8 @@ public class EnemyLaserScript : MonoBehaviour, IDamageAmount
     public float damage = 10;
     bool die = false;
 
-    void Start () {
+    void Start()
+    {
         Destroy(gameObject, 2);
     }
 
@@ -22,13 +23,19 @@ public class EnemyLaserScript : MonoBehaviour, IDamageAmount
     }
 
     // Update is called once per frame
-    void FixedUpdate () {
+    void FixedUpdate()
+    {
         transform.Translate(Vector2.up * movementSpeed * Time.deltaTime);
     }
 
-    void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         die = true;
+    }
+
+    private void OnDisable()
+    {
+        Destroy(gameObject);
     }
 
     public float GetDamage()

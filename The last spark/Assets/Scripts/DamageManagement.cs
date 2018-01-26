@@ -5,29 +5,31 @@ using UnityEngine;
 public class DamageManagement : MonoBehaviour
 {
     public GameManangment gameOver;
+    public GameObject commandPod;
+
+    private void Start()
+    {
+
+    }
 
     public void DeadHandler(GameObject go)
     {
-        if (go == gameObject)
-        {
-            gameOver.GameOver();
-        }
-        else
+        if (!go.Equals(commandPod))
         {
             go.SetActive(false);
             StartCoroutine(ExecuteAfterTime(5, go));
         }
+        else
+        {
+            gameObject.SetActive(false);
+            gameOver.GameOver();
+        }     
     }
-
 
     IEnumerator ExecuteAfterTime(float time, GameObject go)
     {
         yield return new WaitForSeconds(time);
-
-        // Code to execute after the delay
-
-        go.SetActive(true); ;
-
+        go.SetActive(true);
     }
 }
 

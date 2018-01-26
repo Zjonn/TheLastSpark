@@ -14,7 +14,6 @@ public class wlaserScript : MonoBehaviour, IWeapon
     // Use this for initialization
     void Start()
     {
-        //Instantiate(boss, , )
         player = gameObject.GetComponentInParent(typeof(Rigidbody2D)) as Rigidbody2D;
     }
 

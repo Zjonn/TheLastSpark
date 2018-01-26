@@ -27,7 +27,7 @@ public class LaserScript : MonoBehaviour, IDamageAmount
         transform.Translate(Vector2.up * movementSpeed * Time.deltaTime);
     }
 
-    void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         die = true;
     }

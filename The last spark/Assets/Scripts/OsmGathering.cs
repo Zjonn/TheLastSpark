@@ -5,13 +5,12 @@ using UnityEngine.UI;
 
 public class OsmGathering : MonoBehaviour
 {
-
     public float capacity;
-    public float osmVal;
     public Text osmInfo;
 
-    float maxCapacity;
+    OsmAttractor osmAttr;
 
+    float maxCapacity;
     float usedCapacity;
     public float UsedCapacity
     {
@@ -28,15 +27,12 @@ public class OsmGathering : MonoBehaviour
         }
     }
 
-    List<Transform> osms;
-
-    // Use this for initialization
     void Start()
     {
-        osms = new List<Transform>();
-
         maxCapacity = capacity;
         osmInfo.text = "Osm: 0/" + maxCapacity;
+
+        osmAttr = GetComponentInChildren<OsmAttractor>();
 
         IOsmCollector[] ocs = GetComponentsInChildren<IOsmCollector>();
         foreach (IOsmCollector oc in ocs)
@@ -45,48 +41,25 @@ public class OsmGathering : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void FixedUpdate()
-    {
-        foreach (Transform osm in osms)
-        {
-            Vector2 v = osm.position;
-            osm.position = Vector3.MoveTowards(v, transform.position, Time.deltaTime * (3 + Vector2.Distance(v, transform.position)));
-        }
-    }
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        switch (collision.gameObject.tag)
+        if (collision.gameObject.CompareTag("Osm"))
         {
-            case "Osm":
-                UsedCapacity += collision.gameObject.GetComponent<Osm>().Value;
-                osmInfo.text = "Osm: " + UsedCapacity + "/" + maxCapacity;
-                Destroy(collision.gameObject);
-                break;
+            UsedCapacity += collision.gameObject.GetComponent<Osm>().Value;
+            osmInfo.text = "Osm: " + UsedCapacity + "/" + maxCapacity;
+            Destroy(collision.gameObject);
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    void SpecifyAttractorState()
     {
-        GameObject obj = collision.gameObject;
-        switch (obj.tag)
+        if (UsedCapacity == maxCapacity && osmAttr != null)
         {
-            case "Osm":
-                if (UsedCapacity != maxCapacity)
-                    osms.Add(obj.transform);
-                break;
+            osmAttr.AttractorState(false);
         }
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        GameObject obj = collision.gameObject;
-        switch (obj.tag)
+        else
         {
-            case "Osm":
-                osms.Remove(obj.transform);
-                break;
+            osmAttr.AttractorState(true);
         }
     }
 }

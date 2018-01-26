@@ -6,25 +6,18 @@ public class DamageHandler : MonoBehaviour
 {
     DamageManagement dm;
 
-    public int maxHealth = 2;
-    int health;
+    public int health = 2;
+    int maxHealth;
     // Use this for initialization
     void Start()
     {
-        //try
-        //{
         dm = GetComponentInParent<DamageManagement>();
-        //}
-        //catch (Unity)
-        //{
-
-        //}
-        health = maxHealth;
+        maxHealth = health;
     }
 
-    // Update is called once per frame
-    void Update()
+    void Damage(float val)
     {
+        health -= (int)val;
         if (health <= 0)
         {
             dm.DeadHandler(gameObject);
@@ -32,15 +25,10 @@ public class DamageHandler : MonoBehaviour
         }
     }
 
-    void Damage(float val)
-    {
-        health -= (int)val;
-    }
-
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Damage(1);
+        if (!collision.gameObject.CompareTag("Osm"))
+            Damage(1);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

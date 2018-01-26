@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4996769268001150}
   - component: {fileID: 114023705315826098}
   - component: {fileID: 114690904636914064}
+  - component: {fileID: 114098436255725856}
   m_Layer: 8
   m_Name: WorldObserver
   m_TagString: Untagged
@@ -52,11 +53,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e7a00eda0c41b045988e7ecfb3641b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  switchingDist: 25
   chunksSize: 50
-  maxX: 500
-  maxY: 500
-  player: {fileID: 0}
+  switchingDist: 100
+  mapSizeX: 200
+  mapSizeY: 200
+  playerCamera: {fileID: 0}
+  cornersPosShift: 5
+--- !u!114 &114098436255725856
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1449552619668150}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ece9238028b60ff4bb1bd89ea1ceb2a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GameUI:
+  - {fileID: 0}
+  - {fileID: 0}
+  gameOverUI: {fileID: 0}
+  SliderFill: {fileID: 0}
 --- !u!114 &114690904636914064
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -68,8 +86,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77353d9e11e5771458bfa944fbeda7e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scale: 100
-  w: 1000
-  h: 1000
-  asteroid: {fileID: 1547455767973934, guid: 28f86cfd801f29a4fbfda3c9aa37b8d3, type: 2}
+  scale: 110.5
+  triggerRange: 0.046
+  w: 200
+  h: 200
+  asteroid: {fileID: 1122257840185570, guid: 721c11fc8d038f249b805e43f01a5b19, type: 2}
   parent: {fileID: 0}
