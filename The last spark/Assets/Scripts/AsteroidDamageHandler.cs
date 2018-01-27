@@ -47,9 +47,9 @@ public class AsteroidDamageHandler : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    void OnCollisionEnter2D(Collision2D collision)
     {
-        if (!collision.gameObject.CompareTag("Player") && !collision.gameObject.CompareTag("Osm"))
+        if (!collision.gameObject.CompareTag("Player") && !collision.gameObject.CompareTag("Osm") && !collision.gameObject.CompareTag("Asteroid"))
         {
             float dealDamage = collision.gameObject.GetComponent<IDamageAmount>().GetDamage();
             damage += dealDamage;
