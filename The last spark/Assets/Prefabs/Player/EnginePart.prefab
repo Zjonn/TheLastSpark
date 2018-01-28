@@ -20,8 +20,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4591471860048618}
   - component: {fileID: 212065597940070702}
-  - component: {fileID: 114227510781620968}
   - component: {fileID: 61108757172909856}
+  - component: {fileID: 114227510781620968}
+  - component: {fileID: 114709304551798856}
   - component: {fileID: 198740647473589064}
   - component: {fileID: 199187031141268976}
   m_Layer: 0
@@ -81,6 +82,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxThrust: 29.2
+--- !u!114 &114709304551798856
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1228722182717466}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f03f902411baf147aea0bac78c78768, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 2
 --- !u!198 &198740647473589064
 ParticleSystem:
   m_ObjectHideFlags: 1
