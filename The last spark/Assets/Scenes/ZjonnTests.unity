@@ -19002,7 +19002,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 1
-  m_Mass: 5.7343993
+  m_Mass: 5.7344
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
@@ -23077,16 +23077,16 @@ Prefab:
       propertyPath: m_RootOrder
       value: 9
       objectReference: {fileID: 0}
-    - target: {fileID: 114023705315826098, guid: 03825a180ac0af2488da9903aafcfef2,
-        type: 2}
-      propertyPath: playerCamera
-      value: 
-      objectReference: {fileID: 1982748079}
     - target: {fileID: 114690904636914064, guid: 03825a180ac0af2488da9903aafcfef2,
         type: 2}
       propertyPath: parent
       value: 
       objectReference: {fileID: 1413355106}
+    - target: {fileID: 114023705315826098, guid: 03825a180ac0af2488da9903aafcfef2,
+        type: 2}
+      propertyPath: playerCamera
+      value: 
+      objectReference: {fileID: 1982748079}
     - target: {fileID: 114098436255725856, guid: 03825a180ac0af2488da9903aafcfef2,
         type: 2}
       propertyPath: GameUI.Array.data[0]
@@ -23117,6 +23117,21 @@ Prefab:
       propertyPath: sliderText
       value: 
       objectReference: {fileID: 1300771938}
+    - target: {fileID: 114023705315826098, guid: 03825a180ac0af2488da9903aafcfef2,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114023705315826098, guid: 03825a180ac0af2488da9903aafcfef2,
+        type: 2}
+      propertyPath: mapSizeX
+      value: 2000
+      objectReference: {fileID: 0}
+    - target: {fileID: 114023705315826098, guid: 03825a180ac0af2488da9903aafcfef2,
+        type: 2}
+      propertyPath: mapSizeY
+      value: 2000
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 03825a180ac0af2488da9903aafcfef2, type: 2}
   m_IsPrefabParent: 0
