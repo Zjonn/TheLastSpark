@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class OsmAttractor : MonoBehaviour, IOsmCollector
 {
-
     List<Transform> osms;
     bool isSpace;
 
@@ -29,22 +28,15 @@ public class OsmAttractor : MonoBehaviour, IOsmCollector
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    public void MagnetObject(GameObject go, bool toMagnet)
     {
-        GameObject obj = collision.gameObject;
-        if (obj.CompareTag("Osm"))
+        if (toMagnet && isSpace)
         {
-            if (isSpace)
-                osms.Add(obj.transform);
+            osms.Add(go.transform);
         }
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        GameObject obj = collision.gameObject;
-        if (obj.CompareTag("Osm"))
+        else
         {
-            osms.Remove(obj.transform);
+            osms.Remove(go.transform);
         }
     }
 
