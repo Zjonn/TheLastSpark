@@ -54,7 +54,16 @@ public class WeaponController : MonoBehaviour
             nextFire = Time.time + 0.1f;
             foreach (Transform weapon in WLaser)
             {
-                weapon.GetComponent<IWeapon>().Fire();
+                if (weapon.gameObject.activeInHierarchy)
+                {
+                    Debug.Log(weapon.gameObject.activeSelf);
+                    weapon.GetComponent<IWeapon>().Fire();
+                }
+                else
+                {
+                    Debug.Log(weapon.gameObject.activeSelf);
+
+                }
             }
         }
     }
