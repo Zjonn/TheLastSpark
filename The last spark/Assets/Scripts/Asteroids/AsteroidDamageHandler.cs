@@ -25,7 +25,12 @@ public class AsteroidDamageHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (damage > 0)
+
+        if (transform.localScale.x < 0.5f)
+        {
+            Die();
+        }
+        else if (damage > 0)
         {
             //Zmiana koloru przy otrzymaniu obrażeń
             spriteRend.color = Color.Lerp(spriteRend.color, newColor, Mathf.PingPong(Time.time, 0.1f));
@@ -39,11 +44,6 @@ public class AsteroidDamageHandler : MonoBehaviour
             float H, S, V;
             Color.RGBToHSV(firstColor, out H, out S, out V);
             spriteRend.color = Color.Lerp(spriteRend.color, Color.HSVToRGB(H, 1 - transform.localScale.x / 20, 1), Mathf.PingPong(Time.time, 0.2f));
-        }
-
-        if (transform.localScale.x < 0.5f)
-        {
-            Die();
         }
     }
 

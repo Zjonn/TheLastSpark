@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 50721072662043070}
   - component: {fileID: 61110421446879340}
   - component: {fileID: 114383967176892224}
-  m_Layer: 11
+  m_Layer: 9
   m_Name: Missile1
   m_TagString: WeaponRocket
   m_Icon: {fileID: 0}

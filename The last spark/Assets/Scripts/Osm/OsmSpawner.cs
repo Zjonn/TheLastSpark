@@ -7,7 +7,7 @@ public class OsmSpawner : MonoBehaviour
 
     [Range(0, 1)]
     public float chance;
-    [Range(1, 50)]
+    [Range(1, 5)]
     public int InOneUpdate;
 
     public List<GameObject> osmPrefabs;

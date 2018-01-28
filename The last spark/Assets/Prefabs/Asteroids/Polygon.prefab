@@ -105,7 +105,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chance: 0.35
-  InOneUpdate: 2
+  InOneUpdate: 1
   osmPrefabs:
   - {fileID: 1753231774188074, guid: 70bb7bbb7792d704c990ccd624586e53, type: 2}
 --- !u!114 &114331028328219730
