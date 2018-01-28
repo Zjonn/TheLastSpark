@@ -8,4 +8,5 @@ public interface IWeapon
 {
     void Fire();
     GameObject GetGameObject();
+    //Nadpisz ToString żeby zwracało tag!
 }

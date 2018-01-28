@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 114902606660428584}
   - component: {fileID: 50228262033764926}
   - component: {fileID: 58273405059991134}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: osm64
   m_TagString: Osm
   m_Icon: {fileID: 0}
