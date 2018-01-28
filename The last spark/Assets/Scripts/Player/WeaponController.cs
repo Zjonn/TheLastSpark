@@ -49,10 +49,9 @@ public class WeaponController : MonoBehaviour
     {
         if (Input.GetMouseButton(0) && WLaser != null && Time.time > nextFire)
         {
-            nextFire = Time.time + 0.1f;
+            nextFire = Time.time + 0.2f;
             foreach (IWeapon weapon in WLaser)
             {
-                weapon.Fire();
                 if (weapon.GetGameObject().activeInHierarchy)
                 {
                     weapon.Fire();

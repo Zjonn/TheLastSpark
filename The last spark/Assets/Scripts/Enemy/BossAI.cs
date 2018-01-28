@@ -244,11 +244,11 @@ public class BossAI : MonoBehaviour
         DeactivateByDistance();
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
+    void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!isImmortal && !collision.gameObject.CompareTag("Player") && !collision.gameObject.CompareTag("Osm"))
+        if (!isImmortal && !collision.CompareTag("Player") && !collision.gameObject.CompareTag("Osm"))
         {
-            float damage = collision.gameObject.GetComponent<IDamageAmount>().GetDamage();
+            float damage = collision.GetComponent<IDamageAmount>().GetDamage();
             wholeDamage += damage;
             curDamage = wholeDamage;
             health -= damage;

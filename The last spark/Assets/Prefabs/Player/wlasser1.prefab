@@ -36,6 +36,7 @@ GameObject:
   - component: {fileID: 4530763667317808}
   - component: {fileID: 212211955180337506}
   - component: {fileID: 61968701052366262}
+  - component: {fileID: 114482669382469836}
   - component: {fileID: 114146106935197890}
   m_Layer: 8
   m_Name: wlasser1
@@ -110,6 +111,18 @@ MonoBehaviour:
   boss: {fileID: 0}
   laser: {fileID: 1576052201421636, guid: 95a6c768840b32e4ba2fea33bc34cb9a, type: 2}
   spawnPointLaser: {fileID: 4110540547544680}
+--- !u!114 &114482669382469836
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1744640262149444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f03f902411baf147aea0bac78c78768, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 2
 --- !u!212 &212211955180337506
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -110,11 +110,11 @@ public class BossWeapon : MonoBehaviour
                 clone0.GetComponent<Rigidbody2D>().velocity = boss.velocity;
         }
     }
-    void OnCollisionEnter2D(Collision2D collision)
+    void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!collision.gameObject.CompareTag("Player") && !collision.gameObject.CompareTag("Osm") && !collision.gameObject.CompareTag("Asteroid"))
+        if (!collision.CompareTag("Player") && !collision.CompareTag("Osm") && !collision.CompareTag("Asteroid"))
         {
-            health -= collision.gameObject.GetComponent<IDamageAmount>().GetDamage();
+            health -= collision.GetComponent<IDamageAmount>().GetDamage();
         }
     }
 }

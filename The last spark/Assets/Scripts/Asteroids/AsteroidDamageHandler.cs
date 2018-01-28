@@ -47,11 +47,11 @@ public class AsteroidDamageHandler : MonoBehaviour
         }
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
+    void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!collision.gameObject.CompareTag("Player") && !collision.gameObject.CompareTag("Osm") && !collision.gameObject.CompareTag("Asteroid"))
+        if (!collision.CompareTag("Player") && !collision.CompareTag("Osm") && !collision.CompareTag("Asteroid"))
         {
-            float dealDamage = collision.gameObject.GetComponent<IDamageAmount>().GetDamage();
+            float dealDamage = collision.GetComponent<IDamageAmount>().GetDamage();
             damage += dealDamage;
             curDamage = damage;
             newColor = Color.HSVToRGB(Random.value, 1, 1);
