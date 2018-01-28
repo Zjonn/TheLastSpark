@@ -30,4 +30,10 @@ public class wlaserScript : MonoBehaviour, IWeapon
     {
         FireLasert();
     }
+
+    public override string ToString()
+    {
+        return gameObject.tag;
+    }
+
 }

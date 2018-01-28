@@ -4,37 +4,35 @@ using UnityEngine;
 
 public class WeaponController : MonoBehaviour
 {
-
-    Transform[] objects;
-    List<Transform> WLaser;
-    List<Transform> WRocket;
-    List<Transform> WMelee;
+    List<IWeapon> WLaser;
+    List<IWeapon> WRocket;
+    List<IWeapon> WMelee;
 
     float nextFire = 0.0F;
 
     // Use this for initialization
     void Start()
     {
-        WLaser = new List<Transform>();
-        WRocket = new List<Transform>();
-        WMelee = new List<Transform>();
+        WLaser = new List<IWeapon>();
+        WRocket = new List<IWeapon>();
+        WMelee = new List<IWeapon>();
 
-        objects = gameObject.GetComponentsInChildren<Transform>() as Transform[];
+        var objects = gameObject.GetComponentsInChildren<IWeapon>();
         if (objects != null)
         {
-            foreach (Transform object0 in objects)
+            foreach (IWeapon object0 in objects)
             {
-                if (object0.CompareTag("WeaponLaser"))
+                switch (object0.ToString())
                 {
-                    WLaser.Add(object0);
-                }
-                else if (object0.CompareTag("WeaponLaser"))
-                {
-                    WRocket.Add(object0);
-                }
-                else if (object0.CompareTag("WeaponLaser"))
-                {
-                    WMelee.Add(object0);
+                    case "WeaponLaser":
+                        WLaser.Add(object0);
+                        break;
+                    case "WeaponLaser2":
+                        WRocket.Add(object0);
+                        break;
+                    case "WeaponSTH":
+                        WMelee.Add(object0);
+                        break;
                 }
             }
         }
@@ -52,9 +50,9 @@ public class WeaponController : MonoBehaviour
         if (Input.GetMouseButton(0) && WLaser != null && Time.time > nextFire)
         {
             nextFire = Time.time + 0.1f;
-            foreach (Transform weapon in WLaser)
+            foreach (IWeapon weapon in WLaser)
             {
-                weapon.GetComponent<IWeapon>().Fire();
+                weapon.Fire();
             }
         }
     }

@@ -155,7 +155,7 @@ public class Movement : MonoBehaviour
     {
         foreach (EnginePart e in parts)
         {
-            if (e.EngineTransform.gameObject.activeSelf)
+            if (e.EngineTransform.gameObject.activeInHierarchy)
             {
                 float avaibleThrust = e.EngineScript.AvailableThrust;
                 e.EngineScript.SetThrust(avaibleThrust);
@@ -190,7 +190,7 @@ public class Movement : MonoBehaviour
 
         foreach (EnginePart t in parts)
         {
-            if (t.EngineTransform.gameObject.activeSelf)
+            if (t.EngineTransform.gameObject.activeInHierarchy)
             {               
                 float thrust = t.EngineScript.AvailableThrust * thrustMultipler;
                 rb2d.AddTorque(sign * thrust * rotationSpeed);
