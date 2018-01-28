@@ -36,4 +36,8 @@ public class wlaserScript : MonoBehaviour, IWeapon
         return gameObject.tag;
     }
 
+    public GameObject GetGameObject()
+    {
+        return gameObject;
+    }
 }

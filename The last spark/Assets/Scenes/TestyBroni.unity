@@ -2700,8 +2700,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   toFollow: {fileID: 1064338493}
-  minSize: 2
-  maxSize: 5
+  minSize: 5
+  maxSize: 20
 --- !u!114 &1747335672
 MonoBehaviour:
   m_ObjectHideFlags: 0

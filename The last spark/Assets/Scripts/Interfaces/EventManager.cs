@@ -7,4 +7,5 @@ using UnityEngine.EventSystems;
 public interface IWeapon
 {
     void Fire();
+    GameObject GetGameObject();
 }

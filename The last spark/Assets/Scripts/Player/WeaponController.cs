@@ -53,6 +53,10 @@ public class WeaponController : MonoBehaviour
             foreach (IWeapon weapon in WLaser)
             {
                 weapon.Fire();
+                if (weapon.GetGameObject().activeInHierarchy)
+                {
+                    weapon.Fire();
+                }
             }
         }
     }
