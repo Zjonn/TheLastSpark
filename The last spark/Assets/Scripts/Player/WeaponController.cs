@@ -8,7 +8,7 @@ public class WeaponController : MonoBehaviour
     List<IWeapon> WRocket;
     List<IWeapon> WMelee;
 
-    float nextFire = 0.0F;
+    float nextFire = 0.1F;
 
     // Use this for initialization
     void Start()
