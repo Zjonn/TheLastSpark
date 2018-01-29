@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class OsmAttractor : MonoBehaviour, IOsmCollector
+public class OsmAttractor : MonoBehaviour, IOsmCollector, ISendCollision
 {
     List<Transform> osms;
     bool isSpace;
@@ -24,11 +24,11 @@ public class OsmAttractor : MonoBehaviour, IOsmCollector
         foreach (Transform osm in osms)
         {
             Vector2 v = osm.position;
-            osm.position = Vector3.MoveTowards(v, transform.position, Time.deltaTime * (3 + Vector2.Distance(v, transform.position)));
+            osm.position = Vector3.MoveTowards(v, transform.position, Time.deltaTime * (3 + 8 / Vector2.Distance(v, transform.position)));
         }
     }
 
-    public void MagnetObject(GameObject go, bool toMagnet)
+    public void Collision(GameObject un, GameObject go, bool toMagnet)
     {
         if (toMagnet && isSpace)
         {

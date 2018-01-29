@@ -32,6 +32,11 @@ public class LaserScript : MonoBehaviour, IDamageAmount
         die = true;
     }
 
+    private void OnDisable()
+    {
+        Destroy(gameObject);
+    }
+
     public float GetDamage()
     {
         return damage;

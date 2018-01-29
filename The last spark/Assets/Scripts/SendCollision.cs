@@ -4,14 +4,19 @@ using UnityEngine;
 
 public class SendCollision : MonoBehaviour
 {
-    public OsmAttractor oa;
+    ISendCollision toSend;
+
+    private void Start()
+    {
+        toSend = GetComponentInParent<ISendCollision>();
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         GameObject obj = collision.gameObject;
         if (obj.CompareTag("Osm"))
         {
-            oa.MagnetObject(obj, true);
+            toSend.Collision(obj, gameObject, true);
         }
     }
 
@@ -20,7 +25,7 @@ public class SendCollision : MonoBehaviour
         GameObject obj = collision.gameObject;
         if (obj.CompareTag("Osm"))
         {
-            oa.MagnetObject(obj, false);
+            toSend.Collision(obj, gameObject, false);
         }
     }
 }

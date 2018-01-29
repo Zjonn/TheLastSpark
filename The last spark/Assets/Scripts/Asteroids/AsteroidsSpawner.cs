@@ -14,7 +14,7 @@ public class AsteroidsSpawner : MonoBehaviour
     public Transform parent;
 
     // Use this for initialization
-    void Start()
+    void Awake()
     {
         for (int i = 0; i < w; i++)
         {

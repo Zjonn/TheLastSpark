@@ -19,7 +19,7 @@ public class Disabling : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        InitChunks();
+        InitChunks();  
     }
 
     private void InitChunks()
@@ -96,7 +96,7 @@ public class Disabling : MonoBehaviour
 
 class Chunks
 {
-    public int chunksSize;
+    public int chunkSize;
 
     public int sizeX, sizeY;
 
@@ -104,25 +104,25 @@ class Chunks
 
     private int sortedElements;
 
-    public Chunks(Transform[] objects, float sizeX, float sizeY, int chunksSize = 50)
+    public Chunks(Transform[] objects, float sizeX, float sizeY, int chunkSize = 50)
     {
         this.sizeX = (int)sizeX;
         this.sizeY = (int)sizeY;
-        this.chunksSize = chunksSize;
+        this.chunkSize = chunkSize;
         InitChunksArray();
         SortElements(objects);
     }
 
     public List<Transform> GetChunkFromWorldPos(float x, float y)
     {
-        int w = (int)((x + sizeX / 2) / chunksSize);
-        int h = (int)((y + sizeY / 2) / chunksSize);
+        int w = (int)((x + sizeX / 2) / chunkSize);
+        int h = (int)((y + sizeY / 2) / chunkSize);
 
         if (w < 0) w = 0;
-        else if (w >= sizeX / chunksSize) w = sizeX / chunksSize - 1;
+        else if (w >= sizeX / chunkSize) w = sizeX / chunkSize - 1;
 
         if (h < 0) h = 0;
-        else if (h >= sizeY / chunksSize) h = sizeY / chunksSize - 1;
+        else if (h >= sizeY / chunkSize) h = sizeY / chunkSize - 1;
 
         return chunks[w, h];
     }
@@ -172,14 +172,14 @@ class Chunks
 
     public Vector3 GetChunkPos(Vector3 v)
     {
-        int w = (int)((v.x + sizeX / 2) / chunksSize);
-        int h = (int)((v.y + sizeY / 2) / chunksSize);
+        int w = (int)((v.x + sizeX / 2) / chunkSize);
+        int h = (int)((v.y + sizeY / 2) / chunkSize);
 
         if (w < 0) w = 0;
-        else if (w >= sizeX / chunksSize) w = sizeX / chunksSize - 1;
+        else if (w >= sizeX / chunkSize) w = sizeX / chunkSize - 1;
 
         if (h < 0) h = 0;
-        else if (h >= sizeY / chunksSize) h = sizeY / chunksSize - 1;
+        else if (h >= sizeY / chunkSize) h = sizeY / chunkSize - 1;
 
         return new Vector3(w, h, 0);
     }
@@ -218,8 +218,8 @@ class Chunks
 
     private void InitChunksArray()
     {
-        int cX = (int)(sizeX / chunksSize);
-        int cY = (int)(sizeY / chunksSize);
+        int cX = (int)(sizeX / chunkSize);
+        int cY = (int)(sizeY / chunkSize);
 
         chunks = new List<Transform>[cX, cY];
 
@@ -237,12 +237,12 @@ class Chunks
         sortedElements = 0;
         foreach (Transform elem in elems)
         {
-            if (elem.gameObject.activeInHierarchy && elem.gameObject.layer == 9)
+            GameObject go = elem.gameObject;
+            if (go.activeInHierarchy && (go.layer == 9 || go.layer == 11))
             {
-                GetChunkFromWorldPos(elem.position.x, elem.position.y).Add(elem);
-                elem.gameObject.SetActive(false);
+                GetChunkFromWorldPos(elem.position.x, elem.position.y).Add(elem);              
+                go.SetActive(false);
                 sortedElements++;
-
             }
         }
     }
