@@ -14,7 +14,7 @@ public class Disabling : MonoBehaviour
 
 
     private Chunks chunks;
-    private Vector3[] visiableChunks;
+    private List<Vector3> visibleChunks;
 
     // Use this for initialization
     void Start()
@@ -24,7 +24,7 @@ public class Disabling : MonoBehaviour
 
     private void InitChunks()
     {
-        visiableChunks = new Vector3[4];
+        visibleChunks = new List<Vector3>();
         chunks = new Chunks(FindObjectsOfType<Transform>(), mapSizeX, mapSizeY);
     }
 
@@ -41,47 +41,40 @@ public class Disabling : MonoBehaviour
 
         Vector3[] cameraCornersPos = new Vector3[4];
 
-        cameraCornersPos[0] = playerCamera.ViewportToWorldPoint(new Vector3(0, 0, playerCamera.nearClipPlane));
-        cameraCornersPos[0].x -= cornersPosShift;
-        cameraCornersPos[0].y += cornersPosShift;
+        cameraCornersPos[0] = CameraCorners(playerCamera.ViewportToWorldPoint(new Vector3(0, 0, playerCamera.nearClipPlane)), false, false);
+        cameraCornersPos[1] = CameraCorners(playerCamera.ViewportToWorldPoint(new Vector3(1, 0, playerCamera.nearClipPlane)), true, false);
+        cameraCornersPos[2] = CameraCorners(playerCamera.ViewportToWorldPoint(new Vector3(0, 1, playerCamera.nearClipPlane)), false, true);
+        cameraCornersPos[3] = CameraCorners(playerCamera.ViewportToWorldPoint(new Vector3(1, 1, playerCamera.nearClipPlane)), true, true);
 
-        cameraCornersPos[1] = playerCamera.ViewportToWorldPoint(new Vector3(1, 0, playerCamera.nearClipPlane));
-        cameraCornersPos[1].x -= cornersPosShift;
-        cameraCornersPos[1].y -= cornersPosShift;
+        List<Vector3> newVisibleChunks = new List<Vector3>();
 
-        cameraCornersPos[2] = playerCamera.ViewportToWorldPoint(new Vector3(0, 1, playerCamera.nearClipPlane));
-        cameraCornersPos[2].x += cornersPosShift;
-        cameraCornersPos[2].y += cornersPosShift;
-
-        cameraCornersPos[3] = playerCamera.ViewportToWorldPoint(new Vector3(1, 1, playerCamera.nearClipPlane));
-        cameraCornersPos[3].x += cornersPosShift;
-        cameraCornersPos[3].y -= cornersPosShift;
-
-
-        for (int i = 0; i < 4; i++)
+        for (int i = (int)cameraCornersPos[0].x; i <= (int)(cameraCornersPos[3].x); i++)
         {
-            bool stillActive = false;
-
-            if (visiableChunks[i] == chunks.GetChunkPos(cameraCornersPos[i]))
-                continue;
-
-            for (int j = 0; j < 4 && i != j; j++)
+            for (int j = (int)cameraCornersPos[0].y; j <= (int)(cameraCornersPos[3].y); j++)
             {
-                if (visiableChunks[i].Equals(chunks.GetChunkPos(cameraCornersPos[j])))
-                    stillActive = true;
+                newVisibleChunks.Add(new Vector3(i, j, 0));
             }
-
-            if (!stillActive)
-            {
-                chunks.DisableChunkElements(chunks.GetChunkFromPos(visiableChunks[i]));
-            }
-            visiableChunks[i] = chunks.GetChunkPos(cameraCornersPos[i]);
         }
 
-        foreach (List<Transform> chunk in chunks.GetChunks(visiableChunks))
+        foreach (Vector3 v in visibleChunks)
+        {
+            if (!newVisibleChunks.Contains(v))
+            {
+                chunks.DisableChunkElements(chunks.GetChunkFromPos(v));
+            }
+        }
+        visibleChunks = newVisibleChunks;
+        foreach (List<Transform> chunk in chunks.GetChunks(visibleChunks))
         {
             chunks.DisableOutOfSignElements(chunk, cameraPos, switchingDist);
         }
+    }
+
+    private Vector3 CameraCorners(Vector3 camPos, bool addX, bool addY)
+    {
+        camPos.x = (addX) ? camPos.x + cornersPosShift : camPos.x - cornersPosShift;
+        camPos.y = (addY) ? camPos.y + cornersPosShift : camPos.y - cornersPosShift;
+        return chunks.GetChunkPos(camPos);
     }
 
     private void OnValidate()
@@ -150,6 +143,20 @@ class Chunks
     }
 
     public List<List<Transform>> GetChunks(Vector3[] v3)
+    {
+        List<List<Transform>> chunks = new List<List<Transform>>();
+
+        foreach (Vector3 v in v3)
+        {
+            List<Transform> chunk = this.chunks[(int)v.x, (int)v.y];
+            //Brzydkie :/
+            if (!chunks.Contains(chunk))
+                chunks.Add(chunk);
+        }
+        return chunks;
+    }
+
+    public List<List<Transform>> GetChunks(List<Vector3> v3)
     {
         List<List<Transform>> chunks = new List<List<Transform>>();
 
