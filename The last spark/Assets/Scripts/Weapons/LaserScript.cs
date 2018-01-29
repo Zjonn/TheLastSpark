@@ -33,7 +33,10 @@ public class LaserScript : MonoBehaviour, IDamageAmount
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        die = true;
+        if (!collision.CompareTag("Osm"))
+        {
+            die = true;
+        }
     }
 
     public float GetDamage()
