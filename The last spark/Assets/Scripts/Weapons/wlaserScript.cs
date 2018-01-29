@@ -7,7 +7,10 @@ public class wlaserScript : MonoBehaviour, IWeapon
     public GameObject boss;
     public GameObject laser;
     public Transform spawnPointLaser;
+    public float attackSpeed = 0.5f;
 
+
+    float nextFire = 0;
     private GameObject clone;
     Rigidbody2D player;
 
@@ -23,12 +26,16 @@ public class wlaserScript : MonoBehaviour, IWeapon
         clone = Instantiate(laser, spawnPointLaser.position, spawnPointLaser.rotation) as GameObject;
         if (player != null)
             clone.GetComponent<Rigidbody2D>().velocity = player.velocity;
-         
+        clone.GetComponent<IDamageAmount>().StartMovingBullet();
     }
 
     public void Fire()
     {
-        FireLasert();
+        if (Time.time > nextFire)
+        {
+            nextFire = Time.time + attackSpeed;
+            FireLasert();
+        }
     }
 
     public override string ToString()

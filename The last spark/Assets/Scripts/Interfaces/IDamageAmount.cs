@@ -6,4 +6,5 @@ public interface IDamageAmount
 {
 
     float GetDamage();
+    void StartMovingBullet();
 }

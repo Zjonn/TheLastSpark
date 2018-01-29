@@ -8,8 +8,6 @@ public class WeaponController : MonoBehaviour
     List<IWeapon> WRocket;
     List<IWeapon> WMelee;
 
-    float nextFire = 0.0F;
-
     // Use this for initialization
     void Start()
     {
@@ -47,9 +45,8 @@ public class WeaponController : MonoBehaviour
 
     void FireLaserType0()
     {
-        if (Input.GetMouseButton(0) && WLaser != null && Time.time > nextFire)
+        if (Input.GetMouseButton(0) && WLaser != null)
         {
-            nextFire = Time.time + 0.2f;
             foreach (IWeapon weapon in WLaser)
             {
                 if (weapon.GetGameObject().activeInHierarchy)

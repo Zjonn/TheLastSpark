@@ -6,12 +6,13 @@ public class LaserScript : MonoBehaviour, IDamageAmount
 {
     // Use this for initialization
 
-    public float movementSpeed = 1;
+    public float movementSpeed = 10;
     public float damage = 10;
     bool die = false;
+    bool isMoving = false;
 
-    void Start () {
-        Destroy(gameObject, Random.Range(5,6));
+    void Start() {
+        Destroy(gameObject, Random.Range(5, 6));
     }
 
     void Update()
@@ -23,13 +24,19 @@ public class LaserScript : MonoBehaviour, IDamageAmount
     }
 
     // Update is called once per frame
-    void FixedUpdate () {
-        transform.Translate(Vector2.up * movementSpeed * Time.deltaTime);
+    void FixedUpdate() {
+        if (isMoving)
+        {
+            transform.Translate(Vector2.up * movementSpeed * Time.deltaTime);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        die = true;
+        if (!collision.CompareTag("Osm"))
+        {
+            die = true;
+        }
     }
 
     private void OnDisable()
@@ -40,5 +47,10 @@ public class LaserScript : MonoBehaviour, IDamageAmount
     public float GetDamage()
     {
         return damage;
+    }
+
+    public void StartMovingBullet()
+    {
+        isMoving = true;
     }
 }

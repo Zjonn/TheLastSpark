@@ -6,7 +6,7 @@ public class DamageHandler : MonoBehaviour
 {
     DamageManagement dm;
 
-    public int health = 2;
+    public int health = 10;
     int maxHealth;
     // Use this for initialization
     void Start()
@@ -28,7 +28,14 @@ public class DamageHandler : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (!collision.CompareTag("Osm"))
-            Damage(1);
+            Damage(collision.GetComponent<IDamageAmount>().GetDamage());
     }
 
+    private void OnValidate()
+    {
+        if (health < 0)
+        {
+            health = 0;
+        }
+    }
 }

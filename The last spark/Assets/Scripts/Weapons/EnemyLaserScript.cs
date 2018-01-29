@@ -30,7 +30,10 @@ public class EnemyLaserScript : MonoBehaviour, IDamageAmount
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        die = true;
+        if (!collision.CompareTag("Osm"))
+        {
+            die = true;
+        }
     }
 
     private void OnDisable()
@@ -41,5 +44,10 @@ public class EnemyLaserScript : MonoBehaviour, IDamageAmount
     public float GetDamage()
     {
         return damage;
+    }
+
+    public void StartMovingBullet()
+    {
+        //napisać później
     }
 }
