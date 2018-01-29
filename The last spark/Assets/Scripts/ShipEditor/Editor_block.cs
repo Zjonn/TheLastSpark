@@ -1,57 +1,132 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Editor_block : MonoBehaviour, ISendCollision
 {
     public GameObject editor;
-    Transform collision = null;
-    Transform caller;
-    bool isNew = true;
+    public bool isNew;
+    List<Pair> collisions;
 
 
-    public void Collision(GameObject caller, GameObject go, bool isEnter)
+    private void Start()
     {
-        print(caller);
+        collisions = new List<Pair>();
+        isNew = false;
+    }
+
+    public void EditorState(bool isActive)
+    {
+        editor.SetActive(isActive);
+    }
+
+    public void Collision(GameObject caller, Collider2D go, bool isEnter)
+    {
         if (isEnter)
         {
-            collision = go.transform;
-            this.caller = caller.transform;
+            collisions.Add(new Pair(caller, go.gameObject));
         }
         else
-            collision = null;
+        {
+            collisions.Remove(new Pair(caller, go.gameObject));
+        }
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (isNew && ((Input.GetMouseButton(0) && collision == null) || Input.GetMouseButton(1)))
+        if (!GameManangment.isEditor)
         {
-               Destroy(gameObject);
+            editor.SetActive(false);
+            return;
         }
-        else if (isNew)
+        else if (!editor.activeSelf)
+        {
+            editor.SetActive(true);
+        }
+
+        if (isNew && GameManangment.isKeyPressed(KeyCode.R, true))
+        {
+            var r = transform.rotation.eulerAngles;
+            r += new Vector3(0, 0, 90);
+            transform.rotation = Quaternion.Euler(r);
+        }
+        if (!isNew)
+            return;
+
+        else if ((Input.GetMouseButton(0) && collisions.Count == 0) || Input.GetMouseButton(1))
+        {
+            Destroy(gameObject);
+        }
+        else if (Input.GetMouseButton(0) && collisions.Count > 0)
+        {
+            GameObject otherParent = GetParent(collisions[0].second);
+            transform.parent = otherParent.transform;
+
+            Vector3 diff = collisions[0].first.transform.position - collisions[0].second.transform.position;
+            transform.position -= diff;
+
+            foreach (Pair p in collisions.ToArray<Pair>())
+            {
+                p.first.SetActive(false);
+                p.second.SetActive(false);
+            }
+            isNew = false;
+        }
+        else
         {
             Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             pos.z = 0;
             transform.position = pos;
         }
-
-        if (Input.GetKey(KeyCode.Mouse0) && collision != null)
-        {
-            Transform parent = caller.root;
-            collision.SetParent(transform);
-
-            Vector3 diff = transform.position - caller.position;
-            parent.position += diff;
-            isNew = false;
-        }
-        //else if (Input.GetKey(KeyCode.Mouse0))
-        //{
-        //    editor.SetActive(true);
-        //}
-        //else
-        //{
-        //    editor.SetActive(false);
-        //}
     }
+
+    GameObject GetParent(GameObject go)
+    {
+        return go.transform.parent.parent.gameObject;
+    }
+}
+
+class Pair : IEqualityComparer<Pair>
+{
+    public GameObject first;
+    public GameObject second;
+
+    public Pair(GameObject f, GameObject s)
+    {
+        first = f;
+        second = s;
+    }
+
+    public bool Equals(Pair x, Pair y)
+    {
+        return (x.first.transform.position == y.first.transform.position) && (x.second.transform.position == y.second.transform.position);
+    }
+
+    public int GetHashCode(Pair obj)
+    {
+        return 0;
+    }
+
+    // override object.Equals
+    public override bool Equals(object obj)
+    {
+        //       
+        // See the full list of guidelines at
+        //   http://go.microsoft.com/fwlink/?LinkID=85237  
+        // and also the guidance for operator== at
+        //   http://go.microsoft.com/fwlink/?LinkId=85238
+        //
+
+        if (obj == null || GetType() != obj.GetType())
+        {
+            return false;
+        }
+
+        var x = obj as Pair;
+        return first == x.first && second && x.second;
+    }
+
 }

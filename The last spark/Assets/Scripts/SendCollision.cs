@@ -13,19 +13,13 @@ public class SendCollision : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        GameObject obj = collision.gameObject;
-        if (obj.CompareTag("Osm"))
-        {
-            toSend.Collision(obj, gameObject, true);
-        }
+        if (toSend != null)
+            toSend.Collision(gameObject, collision, true);
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        GameObject obj = collision.gameObject;
-        if (obj.CompareTag("Osm"))
-        {
-            toSend.Collision(obj, gameObject, false);
-        }
+        if (toSend != null)
+            toSend.Collision(gameObject, collision, false);
     }
 }

@@ -13,11 +13,14 @@ public class GameManangment : MonoBehaviour
     public Image sliderFill;
     public GameObject sliderText;
 
+    public static bool isEditor = false;
+
     public void GameOver()
     {
         gameOverUI.SetActive(true);
         SetUI(false);
     }
+
 
     private void SetUI(bool state)
     {
@@ -29,17 +32,37 @@ public class GameManangment : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKey(KeyCode.R))
+        if (Input.GetKeyUp(KeyCode.I))
+            isEditor = !isEditor;
+
+        if (isEditor)
         {
-            SetUI(false);
-            sliderUI.SetActive(true);
-            sliderText.SetActive(false);
-            SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().name);
+
         }
-        if (Input.GetKey(KeyCode.Escape))
+        else
         {
-            Application.Quit();
+            if (Input.GetKeyUp(KeyCode.R))
+            {
+                Handle_R();
+            }
+            if (Input.GetKeyUp(KeyCode.Escape))
+            {
+                Handle_Esc();
+            }
         }
+    }
+
+    void Handle_R()
+    {
+        SetUI(false);
+        sliderUI.SetActive(true);
+        sliderText.SetActive(false);
+        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().name);
+    }
+
+    void Handle_Esc()
+    {
+        Application.Quit();
     }
 
     IEnumerable ReloadScene()
@@ -51,6 +74,24 @@ public class GameManangment : MonoBehaviour
             yield return null;
         }
         //yield return new WaitForSeconds(0.2f);
-        
+
+    }
+
+    public static bool isKeyPressed(KeyCode KeyCode, bool isEditorPart)
+    {
+        if ((isEditor && isEditorPart) || (!isEditor && !isEditorPart))
+        {
+            return Input.GetKey(KeyCode);
+        }
+        else return false;
+    }
+
+    public static bool isKeyUp(KeyCode KeyCode, bool isEditorPart)
+    {
+        if ((isEditor && isEditorPart) || (!isEditor && !isEditorPart))
+        {
+            return Input.GetKeyUp(KeyCode);
+        }
+        else return false;
     }
 }

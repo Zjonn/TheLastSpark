@@ -27,7 +27,7 @@ public class DamageHandler : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!collision.CompareTag("Osm"))
+        if (collision.gameObject.layer < 12)
             Damage(collision.GetComponent<IDamageAmount>().GetDamage());
     }
 

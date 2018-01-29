@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface ISendCollision
 {
-    void Collision(GameObject sendingObject, GameObject collision, bool isEnter);
+    void Collision(GameObject sendingObject, Collider2D collision, bool isEnter);
 }
