@@ -42,4 +42,9 @@ public class EnemyLaserScript : MonoBehaviour, IDamageAmount
     {
         return damage;
     }
+
+    public void StartMovingBullet()
+    {
+        //napisać później
+    }
 }

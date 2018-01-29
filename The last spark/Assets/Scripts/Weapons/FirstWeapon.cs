@@ -4,38 +4,46 @@ using UnityEngine;
 
 public class FirstWeapon : MonoBehaviour, IWeapon
 {
-    public float movementSpeed = 10;
+    public float movementSpeed = 100;
     public GameObject bulletPrefab;
     public Transform spawnPointLaser;
+    public float attackSpeed = 0.5f;
+
     Rigidbody2D player;
+    float nextFire = 0;
+    //List<GameObject> bullets;
 
-
-    List<GameObject> bullets;
-	// Use this for initialization
-	void Start () {
-        bullets = new List<GameObject>();
+    // Use this for initialization
+    void Start()
+    {
+        //bullets = new List<GameObject>();
         player = gameObject.GetComponentInParent(typeof(Rigidbody2D)) as Rigidbody2D;
 
     }
 
     // Update is called once per frame
-    void Update () {
-		
-	}
+    void Update()
+    {
+
+    }
 
     public void FireLasert()
     {
         GameObject clone = Instantiate(bulletPrefab, spawnPointLaser.position, Quaternion.Euler(0, 0, Random.Range(-3, 3)) * spawnPointLaser.rotation) as GameObject;
         if (player != null)
             clone.GetComponent<Rigidbody2D>().velocity = player.velocity;
-        clone.transform.Translate(Vector2.up * movementSpeed * Time.deltaTime);
-        bullets.Add(clone);
-        Debug.Log(true);
+        clone.GetComponent<IDamageAmount>().StartMovingBullet();
+        Destroy(clone, Random.Range(5, 6));
+        //bullets.Add(clone); planowane w przyszłości...
     }
 
     public void Fire()
     {
-        FireLasert();
+        if (Time.time > nextFire)
+        {
+            nextFire = Time.time + attackSpeed;
+            FireLasert();
+        }
     }
 
     public override string ToString()

@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class FirstLaser : MonoBehaviour, IDamageAmount
 {
+    public float movementSpeed = 10;
     public float damage = 10;
     bool die = false;
+    bool isMoving = false;
 
     // Use this for initialization
     void Start () {
@@ -21,6 +23,14 @@ public class FirstLaser : MonoBehaviour, IDamageAmount
         }
     }
 
+    void FixedUpdate()
+    {
+        if (isMoving)
+        {
+            transform.Translate(Vector2.up * movementSpeed * Time.deltaTime);
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         die = true;
@@ -29,5 +39,10 @@ public class FirstLaser : MonoBehaviour, IDamageAmount
     public float GetDamage()
     {
         return damage;
+    }
+
+    public void StartMovingBullet()
+    {
+        isMoving = true;
     }
 }
