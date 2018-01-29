@@ -34,14 +34,14 @@ public class Engine : MonoBehaviour
         float emmisionRate;
         if (rotationThrust > 0)
         {
-            emmisionRate = thrust + 100 + rotationThrust * 10;
+            emmisionRate = thrust + rotationThrust;
         }
         else
         {
-            emmisionRate = thrust + rotationThrust * 10;
+            emmisionRate = thrust + rotationThrust;
         }
         if (emmisionRate > maxThrust) emmisionRate = maxThrust;
-        emmision.rateOverTime = emmisionRate;
+        emmision.rateOverTime = emmisionRate/3;
     }
 
     // Update is called once per frame
