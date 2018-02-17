@@ -6,14 +6,16 @@ using UnityEngine.UI;
 
 public class GameManangment : MonoBehaviour
 {
-
     public List<GameObject> GameUI;
+
     public GameObject gameOverUI;
     public GameObject sliderUI;
-    public Image sliderFill;
     public GameObject sliderText;
 
-    public static bool isEditor = false;
+    public Image sliderFill;
+
+
+    public static bool isEditorMode = true;
 
     public void GameOver()
     {
@@ -32,27 +34,28 @@ public class GameManangment : MonoBehaviour
 
     private void Update()
     {
+        ManageInput();
+    }
+
+    void ManageInput()
+    {
         if (Input.GetKeyUp(KeyCode.I))
-            isEditor = !isEditor;
-
-        if (isEditor)
         {
-
+            isEditorMode = !isEditorMode;
         }
-        else
+
+        if (Input.GetKeyUp(KeyCode.R) && !isEditorMode)
         {
-            if (Input.GetKeyUp(KeyCode.R))
-            {
-                Handle_R();
-            }
-            if (Input.GetKeyUp(KeyCode.Escape))
-            {
-                Handle_Esc();
-            }
+            RestartGame();
+        }
+
+        if (Input.GetKeyUp(KeyCode.Escape) && !isEditorMode)
+        {
+            Quit();
         }
     }
 
-    void Handle_R()
+    void RestartGame()
     {
         SetUI(false);
         sliderUI.SetActive(true);
@@ -60,12 +63,12 @@ public class GameManangment : MonoBehaviour
         SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().name);
     }
 
-    void Handle_Esc()
+    void Quit()
     {
         Application.Quit();
     }
 
-    IEnumerable ReloadScene()
+    IEnumerable RestartScene()
     {
         AsyncOperation async = SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().name);
         while (!async.isDone)
@@ -73,25 +76,5 @@ public class GameManangment : MonoBehaviour
             sliderFill.fillAmount = Mathf.Clamp01(async.progress / 0.9f);
             yield return null;
         }
-        //yield return new WaitForSeconds(0.2f);
-
-    }
-
-    public static bool isKeyPressed(KeyCode KeyCode, bool isEditorPart)
-    {
-        if ((isEditor && isEditorPart) || (!isEditor && !isEditorPart))
-        {
-            return Input.GetKey(KeyCode);
-        }
-        else return false;
-    }
-
-    public static bool isKeyUp(KeyCode KeyCode, bool isEditorPart)
-    {
-        if ((isEditor && isEditorPart) || (!isEditor && !isEditorPart))
-        {
-            return Input.GetKeyUp(KeyCode);
-        }
-        else return false;
     }
 }

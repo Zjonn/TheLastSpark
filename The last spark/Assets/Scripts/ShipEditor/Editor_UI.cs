@@ -9,18 +9,24 @@ public class Editor_UI : MonoBehaviour
     public List<SpriteRenderer> parts;
     public Transform gridLayout;
     public Button button;
+
     // Use this for initialization
     void Start()
     {
+        InitUI();
+    }
+
+    void InitUI()
+    {
         foreach (SpriteRenderer sp in parts)
         {
-            Button go = Instantiate<Button>(button, gridLayout);
-            go.onClick.AddListener(() => Click(sp));
-            go.image.sprite = sp.sprite;
+            Button uiPart = Instantiate<Button>(button, gridLayout);
+            uiPart.onClick.AddListener(() => SpawnPart(sp));
+            uiPart.image.sprite = sp.sprite;
         }
     }
 
-    public void Click(SpriteRenderer sp)
+    void SpawnPart(SpriteRenderer sp)
     {
         Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         pos.z = 0;

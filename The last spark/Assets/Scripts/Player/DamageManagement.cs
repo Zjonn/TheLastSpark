@@ -7,11 +7,6 @@ public class DamageManagement : MonoBehaviour
     public GameManangment gameOver;
     public GameObject commandPod;
 
-    private void Start()
-    {
-
-    }
-
     public void DeadHandler(GameObject go)
     {
         if (!go.Equals(commandPod))

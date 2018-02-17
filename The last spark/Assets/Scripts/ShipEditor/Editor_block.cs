@@ -5,20 +5,15 @@ using UnityEngine;
 
 public class Editor_block : MonoBehaviour, ISendCollision
 {
-    public GameObject editor;
-    public bool isNew;
+    public GameObject editorPoints;
+
     List<Pair> collisions;
-
-
-    private void Start()
-    {
-        collisions = new List<Pair>();
-        isNew = false;
-    }
+    bool notAttached;
 
     public void EditorState(bool isActive)
     {
-        editor.SetActive(isActive);
+        if (editorPoints.activeSelf != isActive)
+            editorPoints.SetActive(isActive);
     }
 
     public void Collision(GameObject caller, Collider2D go, bool isEnter)
@@ -34,54 +29,110 @@ public class Editor_block : MonoBehaviour, ISendCollision
 
     }
 
+    private void Start()
+    {
+        collisions = new List<Pair>();
+        notAttached = true;
+    }
+
     // Update is called once per frame
     void Update()
     {
-        if (!GameManangment.isEditor)
+        if (GameManangment.isEditorMode)
         {
-            editor.SetActive(false);
-            return;
-        }
-        else if (!editor.activeSelf)
-        {
-            editor.SetActive(true);
-        }
-
-        if (isNew && GameManangment.isKeyPressed(KeyCode.R, true))
-        {
-            var r = transform.rotation.eulerAngles;
-            r += new Vector3(0, 0, 90);
-            transform.rotation = Quaternion.Euler(r);
-        }
-        if (!isNew)
-            return;
-
-        else if ((Input.GetMouseButton(0) && collisions.Count == 0) || Input.GetMouseButton(1))
-        {
-            Destroy(gameObject);
-        }
-        else if (Input.GetMouseButton(0) && collisions.Count > 0)
-        {
-            GameObject otherParent = GetParent(collisions[0].second);
-            transform.parent = otherParent.transform;
-
-            Vector3 diff = collisions[0].first.transform.position - collisions[0].second.transform.position;
-            transform.position -= diff;
-
-            foreach (Pair p in collisions.ToArray<Pair>())
-            {
-                p.first.SetActive(false);
-                p.second.SetActive(false);
-            }
-            isNew = false;
+            EditorModeUpdate();
         }
         else
         {
-            Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            pos.z = 0;
-            transform.position = pos;
+            GameModeUpdate();
         }
     }
+
+    void EditorModeUpdate()
+    {
+        EditorState(true);
+        if (notAttached)
+        {
+            ManageInput();
+        }
+    }
+
+    void ManageInput()
+    {
+        bool canBeAttached = (collisions.Count > 0) ? true : false;
+
+        if (Input.GetKeyUp(KeyCode.R))
+        {
+            Rotate();
+        }
+
+        if ((Input.GetMouseButton(0) && !canBeAttached) || Input.GetMouseButton(1))
+        {
+            Destroy();
+        }
+        else if (Input.GetMouseButton(0) && canBeAttached)
+        {
+            Attach();
+        }
+        else
+        {
+            FollowMousePos();
+        }
+    }
+
+    void Rotate()
+    {
+        var r = transform.rotation.eulerAngles;
+        r += new Vector3(0, 0, 90);
+        transform.rotation = Quaternion.Euler(r);
+    }
+
+    void Destroy()
+    {
+        DestroyObject(gameObject);
+    }
+
+    void Attach()
+    {
+        AlignPos();
+        DisableAttachPoints();
+        notAttached = false;
+    }
+
+    void AlignPos()
+    {
+        GameObject correctPos = GetParent(collisions[0].second);
+        transform.parent = correctPos.transform;
+
+        Vector3 diffCorrectPos = collisions[0].first.transform.position - collisions[0].second.transform.position;
+        transform.position -= diffCorrectPos;
+    }
+
+    void DisableAttachPoints()
+    {
+        foreach (Pair p in collisions.ToArray<Pair>())
+        {
+            p.first.SetActive(false);
+            p.second.SetActive(false);
+        }
+    }
+
+    void FollowMousePos()
+    {
+        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mousePos.z = 0;
+        transform.position = mousePos;
+    }
+
+    void GameModeUpdate()
+    {
+        EditorState(false);
+        if (notAttached)
+        {
+            Destroy(gameObject);
+        }
+    }
+
 
     GameObject GetParent(GameObject go)
     {
@@ -89,7 +140,7 @@ public class Editor_block : MonoBehaviour, ISendCollision
     }
 }
 
-class Pair : IEqualityComparer<Pair>
+internal class Pair : IEqualityComparer<Pair>
 {
     public GameObject first;
     public GameObject second;
@@ -110,16 +161,8 @@ class Pair : IEqualityComparer<Pair>
         return 0;
     }
 
-    // override object.Equals
     public override bool Equals(object obj)
     {
-        //       
-        // See the full list of guidelines at
-        //   http://go.microsoft.com/fwlink/?LinkID=85237  
-        // and also the guidance for operator== at
-        //   http://go.microsoft.com/fwlink/?LinkId=85238
-        //
-
         if (obj == null || GetType() != obj.GetType())
         {
             return false;
@@ -129,4 +172,11 @@ class Pair : IEqualityComparer<Pair>
         return first == x.first && second && x.second;
     }
 
+    public override int GetHashCode()
+    {
+        var hashCode = 405212230;
+        hashCode = hashCode * -1521134295 + EqualityComparer<GameObject>.Default.GetHashCode(first);
+        hashCode = hashCode * -1521134295 + EqualityComparer<GameObject>.Default.GetHashCode(second);
+        return hashCode;
+    }
 }

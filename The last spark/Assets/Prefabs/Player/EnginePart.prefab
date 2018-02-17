@@ -202,7 +202,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec8c8fd64328e4646bb81c18fa96127e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  editor: {fileID: 1463544375389766}
+  editorPoints: {fileID: 1463544375389766}
 --- !u!114 &114709304551798856
 MonoBehaviour:
   m_ObjectHideFlags: 1
