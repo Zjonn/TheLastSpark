@@ -49,7 +49,6 @@ public class BossAI : MonoBehaviour
     {
         spriteRend = GetComponent<SpriteRenderer>();
         firstColor = spriteRend.color;
-        //firstPos = transform.position;
         maxHealth = health;
         weapons = new List<BossWeapon> { weapon0, weapon1, weapon2, weapon3, weapon4, weapon5 };
     }
